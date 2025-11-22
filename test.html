@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Supabase Web Test</title>
+
+  <!-- CDN版 Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+
+<h2>Supabase Web Test</h2>
+
+<button id="btn-insert">Insert</button>
+<button id="btn-select">Select</button>
+
+<pre id="output"></pre>
+
+<script>
+  // ★ CDN版ではここが必須 ★
+  const { createClient } = supabase;
+
+    const SUPABASE_URL = "https://tpdpqohmdpngotidsccw.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRwZHBxb2htZHBuZ290aWRzY2N3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4MTEyNzcsImV4cCI6MjA3OTM4NzI3N30.A9mLIcPNtW37WqqONdbEMSgebvb9l8D5A4MQpqaMjAc";
+
+  // クライアント作成
+  const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const out = (msg) => {
+    document.getElementById("output").textContent += msg + "\n";
+  };
+
+  // INSERT
+  document.getElementById("btn-insert").onclick = async () => {
+    const { data, error } = await client
+      .from("messages")
+      .insert({ content: "Hello from Web!" });
+
+    out("INSERT:");
+    out(JSON.stringify({ data, error }, null, 2));
+  };
+
+  // SELECT
+  document.getElementById("btn-select").onclick = async () => {
+    const { data, error } = await client
+      .from("messages")
+      .select("*")
+      .order("id", { ascending: false });
+
+    out("SELECT:");
+    out(JSON.stringify({ data, error }, null, 2));
+  };
+
+</script>
+
+</body>
+</html>
