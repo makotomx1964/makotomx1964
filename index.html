@@ -30,18 +30,36 @@
 <div data-role="page" id="page-login">
   <div data-role="header"><h1>Supabase Login</h1></div>
 
-  <div role="main" class="ui-content">
-      <label for="email">メール</label>
-      <input type="email" id="email" placeholder="メール" value="makotomx@gmail.com">
+<div role="main" class="ui-content">
+    <label for="email">メール</label>
+    <input type="email" id="email" placeholder="メール" value="makotomx@gmail.com">
+    <label for="password">パスワード</label>
+    <div style="display: flex; align-items: center;">
+      <input type="password" id="password" placeholder="パスワード" style="flex:1;">
+      <!-- トグルボタン -->
+      <button id="toggle-pass" 
+              data-role="button" 
+              data-mini="true" 
+              style="margin-left:10px;">
+        👁
+      </button>
+    </div>
+    <button id="btn-login" data-role="button">ログイン</button>
+    <button id="btn-logout" data-role="button" data-theme="b">ログアウト</button>
+    <div id="output"></div>
+</div>
 
-      <label for="password">パスワード</label>
-      <input type="password" id="password" placeholder="パスワード">
+<script>
+  $(document).on("click", "#toggle-pass", function () {
+    const input = $("#password");
+    const type = input.attr("type") === "password" ? "text" : "password";
+    input.attr("type", type);
 
-      <button id="btn-login" data-role="button">ログイン</button>
-      <button id="btn-logout" data-role="button" data-theme="b">ログアウト</button>
+    // ボタンの見た目を変更（任意）
+    $(this).text(type === "password" ? "👁" : "🙈");
+  });
+</script>
 
-      <div id="output"></div>
-  </div>
 </div>
 
 
@@ -53,11 +71,11 @@
   </div>
 
   <div role="main" class="ui-content">
+    <!--
       <button id="btn-upsert" data-role="button">Insert / Update (UPSERT)</button>
+    -->
       <button id="btn-select" data-role="button">Select</button>
-
       <ul id="ref-list" data-role="listview" data-inset="true"></ul>
-
       <div id="output"></div>
   </div>
 </div>
