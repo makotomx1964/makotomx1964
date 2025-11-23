@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Supabase Web Test (jQuery Mobile UI)</title>
+
+  <!-- jQuery + jQuery Mobile -->
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    #output {
+      background: #f0f0f0;
+      padding: 0.5rem;
+      white-space: pre-wrap;
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- --- LOGIN PAGE --- -->
+<div data-role="page" id="page-login">
+  <div data-role="header"><h1>Supabase Login</h1></div>
+
+  <div role="main" class="ui-content">
+      <label for="email">メール</label>
+      <input type="email" id="email" placeholder="メール">
+
+      <label for="password">パスワード</label>
+      <input type="password" id="password" placeholder="パスワード">
+
+      <button id="btn-login" data-role="button">ログイン</button>
+      <button id="btn-logout" data-role="button" data-theme="b">ログアウト</button>
+
+      <div id="output"></div>
+  </div>
+</div>
+
+
+<!-- --- MAIN PAGE --- -->
+<div data-role="page" id="page-main">
+  <div data-role="header">
+    <h1>Supabase Web</h1>
+    <a href="#page-login" data-icon="back" data-transition="slide">戻る</a>
+  </div>
+
+  <div role="main" class="ui-content">
+      <button id="btn-upsert" data-role="button">Insert / Update (UPSERT)</button>
+      <button id="btn-select" data-role="button">Select</button>
+
+      <ul id="ref-list" data-role="listview" data-inset="true"></ul>
+
+      <div id="output"></div>
+  </div>
+</div>
+
+
+<script type="module">
+  const { createClient } = supabase;
+
+  // ★ あなたの Supabase 設定に置き換えてください
+  const SUPABASE_URL="https://tpdpqohmdpngotidsccw.supabase.co";
+  const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRwZHBxb2htZHBuZ290aWRzY2N3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4MTEyNzcsImV4cCI6MjA3OTM4NzI3N30.A9mLIcPNtW37WqqONdbEMSgebvb9l8D5A4MQpqaMjAc";
+  const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  const out = (msg) => {
+    const pre = document.getElementById("output");
+    pre.textContent = msg + "\n" + pre.textContent;
+  };
+
+  $("#btn-login").on("click", async () => {
+    const email = $("#email").val().trim();
+    const password = $("#password").val().trim();
+
+    const { data, error } = await client.auth.signInWithPassword({ email, password });
+    if (error) {
+      out("ログイン失敗: " + error.message);
+      return;
+    }
+    out("ログイン成功: " + data.user.email);
+
+    $.mobile.changePage("#page-main", { transition: "slide" });
+  });
+
+  $("#btn-logout").on("click", async () => {
+    await client.auth.signOut();
+    out("ログアウトしました");
+    $.mobile.changePage("#page-login", { transition: "slide" });
+  });
+
+  $("#btn-upsert").on("click", async () => {
+    const { data: { user } } = await client.auth.getUser();
+    if (!user) {
+      out("ログインしていません");
+      return;
+    }
+    const email = user.email;
+    const url = "https://intercondylic-margarett-ingratiatingly.ngrok-free.dev";
+
+    const { data, error } = await client
+      .from("user_urls")
+      .upsert([{ email, url }], { onConflict: ["email"], returning: "representation" });
+
+    out("UPSERT:\n" + JSON.stringify({ data, error }, null, 2));
+  });
+
+  async function loadMyUrl() {
+    const { data: { session } } = await client.auth.getSession();
+    if (!session) {
+      out("Not signed in");
+      return null;
+    }
+
+    const email = session.user.email;
+
+    const { data, error } = await client
+      .from("user_urls")
+      .select("url,updated_at")
+      .eq("email", email)
+      .single();
+
+    if (error) {
+      out("Error: " + JSON.stringify(error));
+      return null;
+    }
+    return data;
+  }
+
+  $("#btn-select").on("click", async () => {
+    const row = await loadMyUrl();
+    if (!row) return;
+
+    const list = $("#ref-list");
+    list.empty();
+
+    list.append(`
+      <li>
+        <a href="${row.url}" target="_blank">
+           Golf Scores<br>
+           <small>${row.updated_at}</small>
+        </a>
+      </li>
+    `);
+
+    list.listview("refresh");
+
+    out("SELECT:\n" + JSON.stringify(row, null, 2));
+  });
+
+  // 現在ログインしているか確認
+  (async () => {
+    const { data: { session } } = await client.auth.getSession();
+    if (session) {
+      out("ログイン済み: " + session.user.email);
+      $.mobile.changePage("#page-main", { transition: "slide" });
+    }
+  })();
+</script>
+
+</body>
+</html>
