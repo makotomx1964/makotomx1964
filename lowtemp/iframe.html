@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html class="overie9" lang="ja" prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# article: http://ogp.me/ns/article#">
+<!--<![endif]-->
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>ジェイシティ サービス ご利用者様向けサポートツール</title>
+	<script src="/v3/common/js/jquery-1.10.1.min.js"></script>
+	<script type="text/javascript">
+	<!--
+	$(document).ready(function(){
+		dataAction();
+	});
+
+	function dataAction(target){
+
+		var elms = target ? $(target).find('[data-action]') : $('#container').find('[data-action]');
+
+		$.each(elms,function(){
+			var actionName = $(this).data('action');
+			eval(actionName+'(this);');
+		});
+
+		function defaultFocus(elm){
+				console.log('a');
+			$(elm).focus();
+		};
+
+		function clickLink(elm){
+			$(elm).click(function (event) {
+				var setting =(function(target){
+					return ({'linkURL':$(target).attr('href'),'windowName' : $(target).attr('target')});
+				})($(this).find('a:eq(0)'));
+
+				if(setting['windowName'] || event.ctrlKey ){
+					window.open(setting['linkURL'], setting['windowName'] ? setting['windowName'] : '_blank');
+				}else{
+					location.href = setting['linkURL'];
+				}
+
+				return false;
+			});
+		};
+
+		function imgSwichSP(elm){
+			$(window).on('load resize', function() {
+				$(elm).attr({
+					'src':function(){
+						if( isSP() ){
+							return $(this).attr('src').replace(/_pc\./g,'_sp.');
+						}else{
+							return $(this).attr('src').replace(/_sp\./g,'_pc.');
+						}
+					}
+				});
+			});
+		};
+		function imgHalfSizeSP(elm){
+			$(window).on('load resize', function() {
+				var img = new Image();
+				img.src = $(elm).attr('src');
+
+				$(elm).attr({
+					'width':function(){
+						if( isSP() ){
+							return img.width/2;
+						}else{
+							return img.width;
+						}
+					}
+				});
+			});
+		}
+	}
+
+
+	// -->
+	</script>
+
+
+	<style type="text/css">
+		*{
+}
+pre{
+	overflow : auto ;
+	word-break: break-all;
+	word-wrap: break-word;
+	white-space: -moz-pre-wrap; /* Mozilla */
+	white-space: -pre-wrap;	 /* Opera 4-6 */
+	white-space: -o-pre-wrap;   /* Opera 7 */
+	white-space: pre-wrap;	  /* CSS3 */
+	word-wrap: break-word;	  /* IE 5.5+ */
+
+}
+html {
+	margin-bottom:1px;
+	height:100%;
+	overflow-y:scroll;
+	font-size:16px;
+	line-height:1;
+	letter-spacing:0.05em;
+	_letter-spacing:0.1em;
+	font-family:  "メイリオ", "Meiryo", "ＭＳ Ｐゴシック", "MS PGothic", "ＭＳ ゴシック", "MS Gothic", sans-serif;
+	-webkit-text-size-adjust: 100%;
+	-ms-text-size-adjust: 100%;
+
+}
+
+body{
+	margin:0;
+}
+
+h1,h2,h3,h4,h5,h6 {
+	margin:0;
+	padding:0;
+	font-size:1em;
+	font-weight: normal;
+}
+
+p {
+	padding:0;
+	margin:0;
+}
+dl{
+	padding:0;
+	margin:0;
+}
+dt,dd{
+	margin:0;
+	padding:0;
+}
+
+img{
+	-ms-interpolation-mode: bicubic;
+}
+a img{
+	border:none;
+}
+	a:hover img{
+		opacity: 0.8;
+		filter:progid:DXImageTransform.Microsoft.Alpha(Enabled=1,Style=0,Opacity=80);
+	}
+
+	#siteID a:hover img{
+		opacity: 1.0;
+		filter:progid:DXImageTransform.Microsoft.Alpha(Enabled=1,Style=0,Opacity=100);
+	}
+
+table{
+	border-collapse:collapse;
+	border-spacing: 0;
+	font-size:inherit;
+	padding:0;
+	margin:0;
+}
+
+ul,ol{
+	margin:0;
+	padding:0;
+}
+	li{
+		list-style-position: outside;
+		list-style-type: none;
+	}
+	li img{
+		vertical-align:top;
+	}
+
+br {
+	letter-spacing: 0;
+}
+
+header,
+main,
+footer,
+figure{
+	display: block;
+}
+
+/* smp */
+textarea{
+	resize: vertical;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+input[type=checkbox]{
+	vertical-align: middle;
+}
+input[type=text],
+select{
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	/* for Android */
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	text-indent: 0.01px;
+	text-overflow: '';
+}
+select::-ms-expand {
+	display: none;
+}
+.bgYellow{
+	background: #faffd8;
+	padding:5px 10px;
+}
+		body{
+			font-size: 15px;
+			background: #fbfbfb;
+		}
+		#container{
+			max-width: 880px;
+			margin: auto;
+			padding: 30px 20px;
+			line-height: 1.8rem;
+			letter-spacing: 1px;
+			background: #fff;
+			min-height: 100%;
+			word-wrap: break-word;
+		}
+/*		.copyArea{
+			padding: 20px;
+			border: 1px solid #c0dcbd;
+		}*/
+		.caption{
+			font-weight: bold;
+			font-size: 1.2em;
+			margin: 10px 0px;
+		}
+		a{
+			color: #185af7;
+		}
+		p{
+			margin: 1rem 0rem;
+		}
+		table{
+			margin: 0 auto 20px;
+		}
+		table th,
+		table td{
+			text-align: left;
+			padding:5px 10px;
+			border: 1px solid #d6d6d6;
+		}
+		table th{
+			background: #f1f1f1;
+			width:300px;
+		}
+		table td{
+			background: #fff;
+		}
+		input{
+			padding: 5px 10px;
+			font-size: 1rem;
+			vertical-align: middle;
+		}
+		textarea{
+			padding: 10px 15px;
+			font-size: 1rem;
+			line-height: 1.6;
+			-webkit-box-sizing: border-box;
+			-moz-box-sizing: border-box;
+			box-sizing: border-box;
+		}
+		a[target="_blank"]:after{
+			content: '（別ウィンドウ）';
+			font-size: 10px;
+		}
+		.quotation{
+			background: #f1f1f1;
+			padding: 2px 3px;
+		}
+		.step{
+			clear: both;
+			overflow: hidden;
+			margin: 20px 0;
+		}
+			.step dt{
+				padding: 5px;
+				background: #EEEEEE;
+				float: left;
+				clear: both;
+				position: relative;
+			}
+				.step dt:after {
+					content: ' ';
+					height: 0;
+					position: absolute;
+					width: 0;
+					border: 10px solid transparent;
+					border-left-color: #EEEEEE;
+					left: 100%;
+					top: 5px;
+				}
+			.step dd{
+				margin-bottom: 1em;
+				padding: 5px 5px 5px 3%;
+				float: left;
+				width: 87%;
+			}
+		.tit{}
+			.tit.ver_lv1{
+				font-size: 1.1rem;
+				color: #fff;
+				background: #4386d8;
+				padding: 5px 10px;
+				margin: 20px 0px 10px;
+			}
+			.tit.ver_lv2{
+				border-left:5px solid #4386d8;
+				padding-left:10px;
+				margin:20px 0 10px;
+			}
+			.tit.ver_lv3{
+				color: #4386d8;
+				font-size: 1.1rem;
+				font-weight: bold;
+				border-left:5px solid #4386d8;
+				padding-left:10px;
+				margin:30px 0 10px;
+			}
+		.list_dot1px{
+			margin: 15px 0;
+			text-indent: -1em;
+			padding-left: 1em;
+		}
+			.list_dot1px li:before{
+				content:'・';
+			}
+		.aside{
+			font-size: 0.95rem;
+			line-height: 1.3em;
+			text-indent: -1.075em;
+			padding-left: 1.075em;
+		}
+			.aside:before{
+				content: '※' !important;
+			}
+		.txt{}
+			.txt.ver_center{
+				text-align: center;
+			}
+		.marker{
+			padding: 0px 3px;
+			margin: 0px 3px;
+		}
+			.marker.ver_soft{
+				background: #e8f5cf;
+			}
+		.status{
+
+		}
+			.status:before{
+				margin-right: 10px;
+			}
+			.status.ver_ok{
+				color: inherit;
+			}
+				.status.ver_ok:before{
+					content: '○';
+				}
+			.status.ver_warning{
+				color: #f59f1b;
+			}
+				.status.ver_warning:before{
+					content: '△';
+				}
+			.status.ver_ng{
+				color: red;
+			}
+				.status.ver_ng:before{
+					content: '×';
+				}
+	.example{
+		position: relative;
+		padding: 0px 20px;
+		width: 90%;
+		margin: 20px auto;
+		background: #f5f5f5;
+		border: 1px dashed #c5c5c5;
+	}
+		.example .caption{
+			font-size: 1rem;
+		}
+	.message{
+		padding: 10px;
+	}
+		.message.ver_warning{
+			background: #fff;
+			border: 1px dotted red;
+			color: red;
+			margin: 20px auto;
+		}
+
+	#header{
+		background: #4386d8;
+		color: #fff;
+		padding: 5px 10px;
+	}
+		#header a{
+			text-decoration: none;
+			color: #fff;
+		}
+	.indexNav{}
+		.indexNav li a{
+			text-decoration: none;
+			color: #2681d2;
+			display: block;
+			padding: 10px 7px;
+			margin: 5px 0px;
+			background: #f2f7ff;
+		}
+		.indexNav li a:hover{
+			background: #e3eeff;
+		}
+	.indexTit{
+		background: #4386d8;
+		padding: 7px 5px;
+		color: #fff;
+		position: -webkit-sticky; /* Safari */
+		position: sticky;
+		top: 0;
+	}
+
+	.indexList {
+		padding:5px 10px;
+		line-height:1.5;
+	}
+		.indexList li{
+			margin-bottom: 0.5em;
+			padding-bottom: 0.5em;
+			border-bottom: 1px dotted #c1c1c1;
+		}
+
+	.qaWrap{
+		border:1px dotted #4386d8;
+		margin-bottom:20px;
+	}
+		.qa_q {
+			background: #e3efff;
+			padding:5px 10px;
+		}
+		.qa_a {
+			padding:5px 10px;
+			overflow:hidden;
+		}
+	</style>
+
+	<script src="/v3/supportTool/file/js/caretposition.js"></script>
+	<!-- <link href="/v3/supportTool/file/js/jquery-linedtextarea.css" rel="stylesheet"/> -->
+
+</head>
+<body>
+	<div id="header">
+		<a href="/v3/supportTool/">ジェイシティ サービス ご利用者様向けサポートツール</a>
+	</div>
+	<div id="container"><div>
+	<div class="tit ver_lv1">iFrameでの利用サンプル</div>
+	<div class="jcf_iframeWrapper">
+		<iframe src="saved_posts.html" style="width:100%;" height="600" "></iframe>
+	</div>
+</div>
+<div>
+	<div class="tit ver_lv1">設定例</div>
+	<p>以下の「★URL★」箇所に、https://asp.jcity.co.jp/FORM/からはじまる貴社フォームのURLを指定してください。</p>
+
+	<input type="text" style="width:100%;" readonly="readonly" onclick="this.select()" value='<iframe src="★URL★" frameborder="0" width="100%" height="600" style="border:1px solid #d4d4d4;"></iframe>'>
+
+	<div class="example">
+		<div class="caption">設定例</div>
+		<ul>
+			<li>&lt;iframe src="<strong>https://asp.jcity.co.jp/FORM/?UserID=demo&formid=135</strong>" frameborder="0" width="100%" height="600" style="border:1px solid #d4d4d4;"&gt;&lt;/iframe&gt;</li>
+		</ul>
+		<p class="aside">埋め込んだ部分の装飾（囲み線の色など）は、Webデザイナーの方にご相談をお願いいたします。</p>
+	</div>
+
+	<div class="tit ver_lv1">技術者向け 開発ヒント</div>
+	<p>
+		cssなどで縦横幅を指定しても、ブラウザ（例えばiPhoneのMobile　Safari）によっては仕様上、無視されることがあります。<br />
+		これを修正する場合、以下のように記述することで対応が可能です。（2016/08/23 現在）<br />
+		※ブラウザによっては、スクロールバーが重複して表示される場合があるため、<br />
+		　メディアクエリで指定している箇所を、JSやPHPなどで、デバイスに応じて出力されるようご対応ください。<br />
+	</p>
+		<style type="text/css">
+			.jcf_iframeWrapper {
+				width:100%;
+				height:600px;
+				border:1px solid #d4d4d4;
+			}
+			.jcf_iframeWrapper　iframe {
+				width:100%;
+				height:100%;
+				display: block;
+				border:none;
+			}
+			@media screen and (max-width: 999px) {
+				.jcf_iframeWrapper {
+					overflow:auto;
+					-webkit-overflow-scrolling:touch;
+				}
+			}
+		</style>
+
+		<div class="caption">対応サンプル</div>
+<textarea cols="100%" rows="10">
+<style type="text/css">
+	.jcf_iframeWrapper {
+		width:100%;
+		height:600px;
+		border:1px solid #d4d4d4;
+	}
+	.jcf_iframeWrapper　iframe {
+		width:100%;
+		height:100%;
+		display: block;
+		border:none;
+	}
+	@media screen and (max-width: 999px) {
+		.jcf_iframeWrapper {
+			overflow:auto;
+			-webkit-overflow-scrolling:touch;
+		}
+	}
+</style>
+<div class="jcf_iframeWrapper">
+	<iframe src="https://asp.jcity.co.jp/FORM/?UserID=demo&formid=135" style="width:100%;" height="600" "></iframe>
+</div>
+</textarea>
+</div>
+		</div>
+</body>
+</html>

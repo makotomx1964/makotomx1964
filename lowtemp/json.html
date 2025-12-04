@@ -1,0 +1,193 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex" />
+    <meta name="robots" content="nofollow" />
+    <title>ajaxで json 情報を取得するデモ</title>
+
+<!--
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+-->
+
+    <script src="js/jquery/demos/js/jquery.min.js"></script>
+	<script src="js/jquery/jquery.mobile-1.4.5.min.js"></script>
+
+
+    <style>
+      .result-box {
+        background-color: #eee;
+        padding: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>ajaxで json情報を取得する</h1>
+
+    <h2>【取得結果】</h2>
+    <p>下記は<a href="js/bookmark.js">こちら</a>からのjsonの情報を表示しています。</p>
+    <div class="result-box">
+
+        <table id="bookmarks" border="0" style="width:100%">
+        </table>
+
+        <table id="result_book" border="1" style="width:100%">
+        </table>
+    </div>
+
+    <button class="add-btn" class="ui-btn ui-corner-all" name="UPDATE">更新</button>
+
+    <script>
+        $(document).on("click", ".add-btn", function () {
+
+            updateTable();
+
+            
+        });
+    </script>
+    
+
+    <script>
+
+
+
+
+    $(function () {
+        createTable();
+    });
+
+
+    function createTable() {
+
+        $.ajax({
+          url: "js/test.json",
+          type: "GET",
+          dataType: "json",
+        })
+          .done(function (d) {
+            // success
+            //取得jsonデータ
+            var data_stringify = JSON.stringify(d);
+            var data = JSON.parse(data_stringify);
+
+            len = data.length;
+            for(var i = 0; i < len ; i++){
+                r_end = data[i].datalist.length;
+                for (var r = 0; r < r_end; r++) {
+                    if(data[i].list == "recipe"){
+                        a_title = data[i].datalist[r].タイトル;          
+                        fav_sel = "fav_sel" + i + "_" + r; 
+                        fav_txt = "fav_txt" + i + "_" + r; 
+
+
+                        img_src = "<img src=\"image/" + data[i].type.toLowerCase() + ".png\"/>";
+                        a_link = "<a target=\"_blank\" href=\"" + data[i].datalist[r].URL + "\" class=\"ui-btn ui-corner-all \">" + img_src + "</a>";
+                        txt_area= "<input id=\"" + fav_txt + "\" type=\"text\" data-clear-btn=\"true\" value=\"" + a_title + "\"></input>";
+                        //txt_area= "<input type=\"text\" data-clear-btn=\"true\" value=\"HELLO\"></input>";
+
+                        fav_data = data[i].datalist[r].KINDS;    
+/*
+                        a_fav = "<select class=\"select_fav\" id=\"" + fav_sel + "\">";
+                        if(fav_data=="NO")
+                        {
+                            a_fav = a_fav + "<option value=\"1\">yes</option>";
+                            a_fav = a_fav + "<option value=\"2\" selected=\"selected\">no</option>";
+                        }
+                        else
+                        {
+                            a_fav = a_fav + "<option value=\"1\" selected=\"selected\">yes</option>";
+                            a_fav = a_fav + "<option value=\"2\">no</option>";
+                        }                 
+                        a_fav=a_fav+"</select>";
+*/
+                        a_fav=fav_data;
+
+
+                        // a_tag = "<tr><td><img src=\"" + a_src + "\"/></td><td><a target=\"_blank\" href=\"" + a_link + "\" class=\"ui-btn ui-corner-all \">" + a_title + "</a></td><td>" + a_fav + "</td></tr>";
+
+                        a_tag = "<tr><td>" + a_link + "</td><td>" + txt_area + "</td><td>" + a_fav + "</td></tr>";
+                        //a_tag = "<tr><td>" + "hello" + "</td><td>" + "world" + "</td><td>" + "today" + "</td></tr>";
+
+                        $("#bookmarks").append(a_tag);
+                    }
+                }
+            }
+            
+            //jsonデータから各データを取得
+            //var data_id = data[2]["type"];
+            //var data_title = data[2]["list"];
+
+
+        })
+          .fail(function (d) {
+            // error
+            console.log("error");
+          });
+      
+
+      }
+
+function updateTable() {
+    $.ajax({
+    url: "js/test.json",
+    type: "GET",
+    dataType: "json",
+    })
+    .done(function (d) {
+        // success
+        //取得jsonデータ
+        var data_stringify = JSON.stringify(d);
+        var data = JSON.parse(data_stringify);
+
+        //$("#result_book").remove();
+        $("#result_book").empty();
+
+        //asert("Empty!");
+
+        len = data.length;
+        for(var i = 0; i < len ; i++){
+            r_end = data[i].datalist.length;
+            for (var r = 0; r < r_end; r++) {
+                if(data[i].list == "recipe"){
+                    fav_sel = "fav_sel" + i + "_" + r; 
+                    fav_txt = "fav_txt" + i + "_" + r; 
+
+                    fav_url = data[i].datalist[r].URL;
+                    fav_title = data[i].datalist[r].タイトル;
+
+                    fav_id = "#" + fav_txt;
+                    fav_title = $(fav_id).val();
+
+                    fav_id = "#" + fav_sel + " option:selected";
+                    // c_temp = $(fav_id).text();
+                    c_temp  = data[i].datalist[r].KINDS;   
+
+//                    fav_txt = "<input type=\"text\" data-clear-btn=\"true\" value=\"" + fav_title + "\"</input>";
+                    fav_txt =  fav_title ;
+                    a_tag = "<tr><td>" + fav_url + "</td><td>" + fav_title  + "</td><td>" + c_temp + "</td</tr>";
+                    $("#result_book").append(a_tag);
+                }
+            }
+        }
+        
+        //jsonデータから各データを取得
+        //var data_id = data[2]["type"];
+        //var data_title = data[2]["list"];
+
+
+    })
+    .fail(function (d) {
+        // error
+        console.log("error");
+    });
+
+
+}
+
+
+    </script>
+  </body>
+</html>

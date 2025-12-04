@@ -1,0 +1,527 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<title>LOW TEMP RECIPE</title>
+
+<!--
+    <link rel="stylesheet" href="js/jquery/jquery.mobile-1.4.5.min.css">
+    <script src="js/jquery/demos/js/jquery.min.js"></script>
+	<script src="js/jquery/jquery.mobile-1.4.5.min.js"></script>
+-->
+<!-- CDN 版 -->
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<style>
+    body {
+    background-image: url('image/bruno.png');
+    background-color: rgba(255,255,255,0.6);
+    /*background-size: 700px; */
+    }
+
+    div {
+    /*  background-image: url('image/bruno.png');       */
+    background-color: rgba(255,255,255,0.6);
+    /*  background-size: 700px;                         */
+    }
+</style>
+</head>
+
+<body data-gr-c-s-loaded="true" class="ui-mobile-viewport ui-overlay-a" data-feedly-mini="yes">
+
+  <!-- Start of first page: #one -->
+  <div data-role="page" id="one" data-url="one" data-theme="Z" style="background-color:rgba(255,255,255,0.6);">
+    <div data-role="header" role="banner" class="ui-header ui-bar-inherit">
+      <h1 class="ui-title" role="heading" aria-level="1">Turbo Sous Vide</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+      <h2>Meet Joule<BR>Turbo Sous Vide</h2>
+    <p><a href="#two" class="ui-btn  ui-shadow ui-corner-all ui-icon-clock ui-btn-icon-left" data-rel="dialog" data-transition="pop">低温調理時間</a></p>
+    <p><a href="#popup" class="ui-btn ui-shadow ui-corner-all  ui-icon-tag ui-btn-icon-left" data-rel="dialog" data-transition="pop">低温調理レシピ</a></p>
+    <p><a href="#popup2" class="ui-btn  ui-shadow ui-corner-all ui-icon-user ui-btn-icon-left"  data-rel="dialog" data-transition="pop">低温調理マイレシピ</a></p>
+    <p><a href="#popup4" class="ui-btn  ui-shadow ui-corner-all ui-icon-user ui-btn-icon-left"  data-rel="dialog" data-transition="pop">Instagram Recipes</a></p>
+<!--
+    <p><a href="#popup3" class="ui-btn  ui-shadow ui-corner-all ui-icon-user ui-btn-icon-left"  data-rel="dialog" data-transition="pop">Instagram Recipes(ALL)</a></p>
+-->    
+
+    </div><!-- /content -->
+
+    <div data-role="footer" data-theme="Z">
+      <h4>Copyright 1964-2024, MURAKAMI.makoto</h4>
+    </div><!-- /footer -->
+<!--
+    <div data-role="footer" data-theme="z" role="contentinfo" class="ui-footer ui-bar-a">
+      <h4 class="ui-title" role="heading" aria-level="1">Copyright 1964-2024, MURAKAMI.makoto</h4>
+    </div><!-- /footer -->
+
+  </div><!-- /page one -->
+
+  <!-- Start of second page: #two -->
+  <div data-role="page" id="two" data-url="two" style="background-color:rgba(255,255,255,0.6);">
+    <div data-role="header">
+      <h2>低温調理 調理時間</h2>
+      <a href="#one" data-icon="home" class="ui-btn-left">戻る</a>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content" >
+    <h2 >低温調理加熱時間</h2>
+
+    <table  border="0" >
+        <tr>
+        <td><img id="id_img2" src="image/timer.png"/></td>
+        <td><h2 id="id_time">showHello</h2></td>
+        </tr>
+    </table>
+
+    <table  border="0" style="width:100%">
+    <tr>
+        <td"><h3>食材を選んでください</h3></td>
+    </tr>
+    <tr>
+        <td>
+            <img id="id_img" src="image/beef.png"/>
+        </td>
+        <td valign="top">
+            <select id="select" class="select_recipe">
+                <option value="BEEF"  img src="image/beef.png" >牛肉・ラム肉</option>
+                <option value="CHICKEN" data-image="image/chicken.png">鶏肉</option>
+                <option value="PORK"  selected data-image="image/pork.png">豚肉・ジビエ</option>
+                <option value="FISH" data-image="image/fish.png">魚</option>
+                
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td colspan="4" valign="top"><h3>温度と食材の厚さを選びます</h3></td>
+    </tr>
+    <tr>
+        <td><img id="id_img" src="image/temp.png"/></td>
+        <td>
+            <select id="temp"  class="select_recipe">
+                <option value="55">55°C</option>
+                <option value="56">56°C</option>
+                <option value="57">57°C</option>
+                <option value="58">58°C</option>
+                <option value="59">59°C</option>
+                <option value="60">60°C</option>
+                <option value="61" selected >61°C</option>
+                <option value="62">62°C</option>
+                <option value="63">63°C</option>
+                <option value="64">64°C</option>
+                <option value="65">65°C</option>
+                <option value="66">66°C</option>
+                <option value="67">67°C</option>
+                <option value="68">68°C</option>
+                <option value="69">69°C</option>
+                <option value="70">70°C</option>
+            </select>
+        </td>
+    </tr>
+    <tr>
+        <td><img id="id_img" src="image/measure.png"/></td>
+        <td colspan="2">
+            <select id="thickness"  class="select_recipe">
+                <option value="5"> 5mm</option>
+                <option value="10">10mm</option>
+                <option value="15">15mm</option>
+                <option value="20" selected >20mm</option>
+                <option value="25">25mm</option>
+                <option value="30">30mm</option>
+                <option value="35">35mm</option>
+                <option value="40">40mm</option>
+                <option value="45">45mm</option>
+                <option value="50">50mm</option>
+                <option value="55">55mm</option>
+            </select>
+            </td>
+    </tr>
+    </table>
+
+    <script>
+        $(window).on('load', function() {
+            console.log("load");
+        });
+        $(document).ready(function(){
+            changeTemp();
+            updateBookmark();
+            updateBookmark2();
+//          updateBookmark3();
+        });
+
+    </script>
+
+    <script>
+        $(document).on("change", ".select_recipe", function () {
+            changeTemp();
+        });
+
+        function changeTemp() {
+            c_type = $('#select').val();
+            c_temp = $('#temp option:selected').val();
+            c_thick = $('#thickness').val();
+
+
+            $("#temp").children().removeAttr('disabled');
+            switch (c_type) {
+            case "BEEF":
+                img_src = "image/beef.png";
+                break;
+            case "CHICKEN":
+                img_src = "image/chicken.png";
+                $("#temp").children("[value='" + 55 + "']").attr("disabled", "disabled");
+                $("#temp").children("[value='" + 56 + "']").attr("disabled", "disabled");;
+                break;
+            case "FISH":
+                img_src = "image/fish.png";
+                break;
+            case "PORK":
+                img_src = "image/pork.png";
+                $("#temp").children("[value='" + 55 + "']").attr("disabled", "disabled");
+                $("#temp").children("[value='" + 56 + "']").attr("disabled", "disabled");;
+                $("#temp").children("[value='" + 57 + "']").attr("disabled", "disabled");
+                $("#temp").children("[value='" + 58 + "']").attr("disabled", "disabled");;
+                $("#temp").children("[value='" + 59 + "']").attr("disabled", "disabled");
+                $("#temp").children("[value='" + 60 + "']").attr("disabled", "disabled");;
+                break;
+            }
+            updateTable(c_type,c_temp,c_thick);
+            img_src = "image/" + c_type.toLowerCase() +".png";
+            $('#id_img').attr("src",img_src);
+
+
+        }
+
+        function updateBookmark() {
+            $.getJSON("js/bookmark.js" , function(data) {
+                    c_end = data.length;
+                    for(var i = 0; i < c_end ; i++){
+                        r_end = data[i].datalist.length;
+                        for (var r = 0; r < r_end; r++) {
+                            if(data[i].list == "menu"){
+                                a_src = "image/" + data[i].type.toLowerCase() + ".png";
+                                a_link = data[i].datalist[r].URL;
+                                a_title = data[i].datalist[r].タイトル;                                
+                                a_tag = "<tr><td><img src=\"" + a_src + "\"/></td><td><a target=\"_blank\" href=\"" + a_link + "\" class=\"ui-btn ui-corner-all \">" + a_title + "</a></td></tr>";
+                                // a_tag = "<tr><td><img src=\"" + a_src + "\"/></td><td><a href=\"" + a_link + "\" class=\"ui-btn ui-corner-all\" data-rel=\"dialog\" data-transition=\"pop\">" + a_title + "</a></td></tr>";
+
+                                $("#bookmarks").append(a_tag);
+                            }
+                        }
+                    }
+                });
+        }
+
+        function updateBookmark3() {
+            $.getJSON("js/test.json" , function(data) {
+                    c_end = data.length;
+                    for(var i = 0; i < c_end ; i++){
+                        r_end = data[i].datalist.length;
+                        for (var r = 0; r < r_end; r++) {
+                            if(data[i].list == "recipe"){
+                                a_src = "image/" + data[i].type.toLowerCase() + ".png";
+                                a_link = data[i].datalist[r].URL;
+                                a_title = data[i].datalist[r].タイトル;                                
+                                a_tag = "<tr><td><img src=\"" + a_src + "\"/></td><td style=\"width:10%\"><a target=\"_blank\" href=\"" + a_link + "\" class=\"ui-btn ui-corner-all \">" + a_title + "</a></td></tr>";
+                                // a_tag = "<tr><td><img src=\"" + a_src + "\"/></td><td><a href=\"" + a_link + "\" class=\"ui-btn ui-corner-all\" data-rel=\"dialog\" data-transition=\"pop\">" + a_title + "</a></td></tr>";
+
+                                $("#bookmarks3").append(a_tag);
+                            }
+                        }
+                    }
+                });
+        }
+
+
+
+        function updateBookmark2() {
+            $.getJSON("js/bookmark2.js" , function(data) {
+                    c_end = data.length;
+                    for(var i = 0; i < c_end ; i++){
+                        r_end = data[i].datalist.length;
+                        for (var r = 0; r < r_end; r++) {
+                            if(data[i].type != "OTHERS"){
+                                a_src = "image/" + data[i].type.toLowerCase() + ".png";
+                                a_link = data[i].datalist[r].URL;
+                                a_title = data[i].datalist[r].タイトル;
+                                //a_tag = "<p><a href=\"" + a_link + "\">" + a_title ///+"</a></p>"
+                                
+                                /*
+                                a_tag = "<tr><td><img src=\"" + a_src + "\"/></td><td><a href=\"" + a_link + "\" class=\"ui-btn ui-corner-all\">" + a_title + "</a></td></tr>";
+                                */
+
+                                a_tag = "<tr><td><img src=\"" + a_src + "\"/></td>";
+                                
+                                b_tag = "<td><button class=\"add-btn\" class=\"ui-btn ui-corner-all\" name=\"" + a_link + "\">" + a_title +"</button></td/></tr>";
+
+
+                                $("#bookmarks2").append(a_tag + b_tag);
+                            }
+                        }
+                    }
+                });
+        }
+
+        function updateTable(c_type,c_temp,c_thin) {
+            $.getJSON("js/lowtemp.js" , function(data) {
+                    c_end = data.length;
+                    b_find = false;
+                    c_heattime = "(温度を見直してください)";
+                    
+                    i=0;
+    
+                    var tableJQ = $('<table id="table_id1">');
+
+                    for(var i = 0; i < c_end ; i++){
+                        r_end = data[i].datalist.length;
+
+                        for (var r = 0; r < r_end; r++) {
+
+                            // type
+                            var c000 = data[i].type;
+                            if (c000 !=  c_type){
+                                continue;
+                            }
+
+                            var c000 = data[i].datalist[r].温度;
+                            if (c000 !=  c_temp){
+                                continue;
+                            }
+
+                            var c000 = data[i].datalist[r].厚さ;
+                            if (c000 !=  c_thin){
+                                continue;
+                            }
+                            // 加熱時間
+                            c_heattime = data[i].datalist[r].加熱時間;
+                            break;
+
+                        }
+                    }
+
+                    msg = c_heattime;
+                    $('#id_time').text(msg);
+                });
+        }
+
+    </script>
+
+
+<!--
+      <p><a href="#two" class="ui-btn ui-shadow ui-corner-all">Show page "two"</a></p>
+      <p><a href="#popup" class="ui-btn ui-shadow ui-corner-all" data-rel="dialog" data-transition="pop">Show page
+          "popup" (as a dialog)</a></p>
+
+      <p><a href="#one" data-direction="reverse" class="ui-btn ui-shadow ui-corner-all ui-btn-b">Back to page "one"</a></p>
+
+-->
+    </div><!-- /content -->
+
+    <div data-role="footer" data-theme="Z">
+      <h4>Copyright 1964-2024, MURAKAMI.makoto</h4>
+    </div><!-- /footer -->
+
+  </div><!-- /page two -->
+
+  <!-- Start of third page: #popup -->
+  <div data-role="page" id="popup" data-url="popup" style="background-color:rgba(255,255,255,0.1);"  data-theme="Z"  >
+    <div data-role="header" data-theme="Z">
+      <h1>低温調理レシピ</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+      <h2>低温調理レシピ</h2>
+
+    <table id="bookmarks" border="0" style="width:100%">
+    </table>
+    </div><!-- /content -->
+
+    <div data-role="footer" data-theme="Z">
+      <h4>Copyright 1964-2024, MURAKAMI.makoto</h4>
+    </div><!-- /footer -->
+  </div><!-- /page popup -->
+
+  <!-- Start of forth page: #popup2 -->
+  <div data-role="page" id="popup2" data-url="popup2" style="background-color:rgba(255,255,255,0.1);"  data-theme="Z" >
+    <div data-role="header" data-theme="Z">
+      <h1>マイレシピ</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+      <h2>低温調理マイレシピ</h2>
+
+    <div class="btn-area">
+    <table id="bookmarks2" border="0" style="width:100%">
+    </table>
+    </div>
+
+    <table  border="0" style="width:100%">
+        <tr>
+        <td><h2 id="recipe_txt" style="background-color:rgba(255,255,255,0.9);"></h2></td>
+        </tr>
+        <tr>
+        <td><img id="recipe" src="" style="width:100%" style="background-color:rgba(255,255,255,0.9);"/></td>
+        </tr>
+    </table>
+
+<!--
+    <video src="image/recipe_1.mp4" autoplay loop muted style="width:100%" controls> 
+        <p>このブラウザは video に未対応です。</p>
+    </video>
+-->
+
+<script>
+    $(document).on("click", ".add-btn", function () {
+        var name = $(this).attr('name');
+        $("#recipe").attr('src',name);
+
+        name = $(this).text();
+        $("#recipe_txt").text(name);
+
+        // $(".btn-area").append(html);
+    });
+</script>
+
+
+
+    </div><!-- /content -->
+
+    <div data-role="footer" data-theme="Z">
+      <h4>Copyright 1964-2024, MURAKAMI.makoto</h4>
+    </div><!-- /footer -->
+
+  </div><!-- /page popup -->
+
+  <!-- Start of forth page: #popup3 -->
+  <div data-role="page" id="popup3" data-url="popup3" style="background-color:rgba(255,255,255,0.1)"  data-theme="Z" >
+    <div data-role="header" data-theme="Z">
+      <h1>Instagram Recipes</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+      <h2>インスタグラム レシピ集</h2>
+
+    <div class="btn-area" >
+    <table id="bookmarks3" border="0" style="table-layout:fixed">
+    </table>
+    </div>
+
+    </div><!-- /content -->
+
+    <div data-role="footer" data-theme="Z">
+      <h4>Copyright 1964-2024, MURAKAMI.makoto</h4>
+    </div><!-- /footer -->
+
+</div><!-- /page popup -->
+
+
+ <!-- Start of forth page: #popup4 -->
+ <div data-role="page" id="popup4" data-url="popup4" style="background-color:rgba(255,255,255,0.1)"  data-theme="Z" >
+    <div data-role="header" data-theme="Z">
+      <h1>Instagram Recipes</h1>
+    </div><!-- /header -->
+
+    <div role="main" class="ui-content">
+      <h2>インスタグラム レシピ集</h2>
+
+    <table  border="0" style="width:100%">
+        <tr>
+            <td>
+                <img id="id_img_recipe" src="image/icons/cook.png"/>
+            </td>
+            <td valign="top">
+                <select id="select_recipe" class="select_recipe_menu">
+                    <option value="COOK"  selected  img src="image/beef.png" >食材を選んでください</option>
+                    <option value="BEEF"  img src="image/beef.png" >牛肉</option>
+                    <option value="CHICKEN" data-image="image/chicken.png">鶏肉・たまご</option>
+                    <option value="PORK"  data-image="image/pork.png">豚肉</option>
+                    <option value="SEAFOOD" data-image="image/fish.png">シーフード</option>
+                    <option value="PASTA" data-image="image/fish.png">パスタ・麺類</option>
+                    <option value="VEGETABLE" data-image="image/fish.png">野菜・きのこ</option>
+                    <option value="OTHER" data-image="image/fish.png">そのほか</option>
+                    
+                </select>
+            </td>
+        </tr>
+    </TABLE>
+
+
+    <div class="btn-area" >
+    <table id="recipe_list" border="0" style="table-layout:fixed">
+    </table>
+    </div>
+
+    </div><!-- /content -->
+
+    <div data-role="footer" data-theme="Z">
+      <h4>Copyright 1964-2024, MURAKAMI.makoto</h4>
+    </div><!-- /footer -->
+
+</div><!-- /page popup -->
+
+<script>
+    $(document).on("change", ".select_recipe_menu", function () {
+        c_type = $('#select_recipe').val();
+        img_src = "image/icons/" + c_type.toLowerCase() + ".png";
+
+        $('#id_img_recipe').attr("src",img_src);
+
+        updateRecipeList(c_type);
+
+    });
+
+
+    function updateRecipeList(recipe) {
+            $.getJSON("js/test.json" , function(data) {
+
+                    $("#recipe_list").empty();
+
+                    c_end = data.length;
+                    for(var i = 0; i < c_end ; i++){
+                        r_end = data[i].datalist.length;
+                        for (var r = 0; r < r_end; r++) {
+                            if(data[i].list == "recipe"){
+                                if(data[i].datalist[r].KINDS == recipe){
+                                    a_src = "image/icons/" + data[i].datalist[r].KINDS.toLowerCase() + ".png";
+                                    a_link = data[i].datalist[r].URL;
+                                    a_title = data[i].datalist[r].タイトル;                                
+                                    // a_tag = "<tr><td><img src=\"" + a_src + "\"/></td><td style=\"width:10%\"><a target=\"_blank\" href=\"" + a_link + "\" class=\"ui-btn ui-corner-all \">" + a_title + "</a></td></tr>";
+                                    a_tag = "<tr><td style=\"width:10%\"><a target=\"_blank\" href=\"" + a_link + "\" class=\"ui-btn ui-corner-all \">" + a_title + "</a></td></tr>";
+
+                                    // a_tag = "<tr><td><img src=\"" + a_src + "\"/></td><td><a href=\"" + a_link + "\" class=\"ui-btn ui-corner-all\" data-rel=\"dialog\" data-transition=\"pop\">" + a_title + "</a></td></tr>";
+
+                                    $("#recipe_list").append(a_tag);
+                                }
+                            }
+                        }
+                    }
+                });
+    }
+
+
+</script>
+
+
+<!--
+  <div class="ui-loader ui-corner-all ui-body-a ui-loader-default"><span class="ui-icon-loading"></span>
+    <h1>loading</h1>
+  </div>
+-->
+  <!--
+  <div id="weava-permanent-marker" date="1538710288557"></div>
+  <div id="feedly-mini" title="feedly Mini tookit"></div>
+  <div id="weava-ui-wrapper">
+    <div class="weava-drop-area-wrapper">
+      <div class="weava-drop-area"></div>
+      <div class="weava-drop-area-text">Drop here!</div>
+    </div>
+  </div>
+  -->
+</body>
+
+</html>
