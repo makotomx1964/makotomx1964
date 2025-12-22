@@ -1,0 +1,17 @@
+name: Supabase Keep Alive
+
+on:
+  schedule:
+    # 毎日 日本時間 12:00（UTC 03:00）
+    - cron: '0 3 * * *'
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase DB
+        run: |
+          curl -sS "$SUPABASE_URL/rest/v1/user_urls?select=id&limit=1" \
+            -H "apikey: $SUPABASE_ANON_KEY" \
+            -H "Authorization: Bearer $SUPABASE_ANON_KEY"
