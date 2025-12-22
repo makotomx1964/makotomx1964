@@ -12,6 +12,6 @@ jobs:
     steps:
       - name: Ping Supabase DB
         run: |
-          curl -sS "$SUPABASE_URL/rest/v1/user_urls?select=id&limit=1" \
+          curl -sS "$SUPABASE_URL/rest/v1/github_keepalive?select=id&limit=1" \
             -H "apikey: $SUPABASE_ANON_KEY" \
             -H "Authorization: Bearer $SUPABASE_ANON_KEY"
