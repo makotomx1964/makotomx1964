@@ -1,0 +1,60 @@
+  :root {
+    --wrap-height: 180px;
+    --wrap-width: 180px;
+  }
+
+  .body_camera {
+    background:#111;
+    color:#eee;
+    text-align:center;
+    font-family: sans-serif;
+  }
+
+  #wrap {
+    position: relative;
+    width: var(--wrap-width);
+    height: var(--wrap-height);
+    margin: 0 auto;
+  }
+
+  video, #view, #overlay {
+    position:absolute;
+    top:0; left:0;
+    width: var(--wrap-width);
+    height: var(--wrap-height);
+  }
+
+  video    { z-index:1; object-fit: cover;  }
+  #view    { z-index:2; display:none;       }
+  #overlay { z-index:3; cursor:crosshair;   }
+
+  /* overlayだけクリックを受ける */
+  #video,
+  #view {
+    pointer-events: none;
+  }
+
+  #overlay {
+    pointer-events: auto;
+    cursor: pointer;
+  }  
+
+  .controls {
+    margin-top: 12px;
+  }
+
+  #result {
+    display:block;
+    margin: 8px auto 0;
+    border:1px solid #444;
+  }
+
+  table {
+    margin: 10px auto;
+    border-collapse: collapse;
+  }
+
+  td, th {
+    border:1px solid #555;
+    padding:4px 8px;
+  }

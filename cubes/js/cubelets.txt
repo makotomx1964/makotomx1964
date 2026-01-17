@@ -1,0 +1,396 @@
+
+applyState: UUUUUUUUURRRRRRRRRFFFFFFFFFDDDDDDDDDLLLLLLLLLBBBBBBBBB
+applyState: done: [
+  {
+    "metadata": {
+      "version": 4.5,
+      "type": "Object",
+      "generator": "Object3D.toJSON"
+    },
+    "geometries": [
+      {
+        "uuid": "21f8e7e1-cf9b-4b5a-9ed7-e41421c3cedf",
+        "type": "BoxGeometry",
+        "width": 0.95,
+        "height": 0.95,
+        "depth": 0.95,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    ],
+    "materials": [
+      {
+        "uuid": "8d5fd10d-0e30-43d5-85b5-0d3ad2eb1406",
+        "type": "MeshLambertMaterial",
+        "color": 1118481,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": null
+      },
+      {
+        "uuid": "41b4fc1c-9851-46d6-90b6-cc137d9ad185",
+        "type": "MeshLambertMaterial",
+        "color": 65280,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": {
+          "face": "L",
+          "local": 6,
+          "global": 42
+        }
+      },
+      {
+        "uuid": "be1e68c9-82ec-400d-a2a4-f0b522ab6529",
+        "type": "MeshLambertMaterial",
+        "color": 1118481,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": null
+      },
+      {
+        "uuid": "22dfbe0d-d607-43cf-80cc-14e2ae95c8fa",
+        "type": "MeshLambertMaterial",
+        "color": 16776960,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": {
+          "face": "D",
+          "local": 6,
+          "global": 33
+        }
+      },
+      {
+        "uuid": "c5d522fa-12da-4909-b499-5f69e6aecc13",
+        "type": "MeshLambertMaterial",
+        "color": 1118481,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": null
+      },
+      {
+        "uuid": "6d8a2a4c-b65d-4684-895b-f74cf2ccf6b1",
+        "type": "MeshLambertMaterial",
+        "color": 16744448,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": {
+          "face": "B",
+          "local": 8,
+          "global": 53
+        }
+      }
+    ],
+    "object": {
+      "uuid": "c6232f1e-cf4f-4f47-baeb-8be4b31a3df9",
+      "type": "Mesh",
+      "userData": {
+        "coord": {
+          "x": -1,
+          "y": -1,
+          "z": -1
+        }
+      },
+      "layers": 1,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "geometry": "21f8e7e1-cf9b-4b5a-9ed7-e41421c3cedf",
+      "material": [
+        "8d5fd10d-0e30-43d5-85b5-0d3ad2eb1406",
+        "41b4fc1c-9851-46d6-90b6-cc137d9ad185",
+        "be1e68c9-82ec-400d-a2a4-f0b522ab6529",
+        "22dfbe0d-d607-43cf-80cc-14e2ae95c8fa",
+        "c5d522fa-12da-4909-b499-5f69e6aecc13",
+        "6d8a2a4c-b65d-4684-895b-f74cf2ccf6b1"
+    …  "metadata": {
+      "version": 4.5,
+      "type": "Object",
+      "generator": "Object3D.toJSON"
+    },
+    "geometries": [
+      {
+        "uuid": "21f8e7e1-cf9b-4b5a-9ed7-e41421c3cedf",
+        "type": "BoxGeometry",
+        "width": 0.95,
+        "height": 0.95,
+        "depth": 0.95,
+        "widthSegments": 1,
+        "heightSegments": 1,
+        "depthSegments": 1
+      }
+    ],
+    "materials": [
+      {
+        "uuid": "36d4d9c5-48b2-4c71-822e-6ef5b02d0e5c",
+        "type": "MeshLambertMaterial",
+        "color": 255,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": {
+          "face": "R",
+          "local": 0,
+          "global": 9
+        }
+      },
+      {
+        "uuid": "fe16a0d6-9b45-4444-b534-e888a02f081c",
+        "type": "MeshLambertMaterial",
+        "color": 1118481,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": null
+      },
+      {
+        "uuid": "bffa81f4-00cb-4468-9699-0257190a0a33",
+        "type": "MeshLambertMaterial",
+        "color": 16777215,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": {
+          "face": "U",
+          "local": 8,
+          "global": 8
+        }
+      },
+      {
+        "uuid": "32606a7d-c5c6-4b2d-8243-9f911d336f32",
+        "type": "MeshLambertMaterial",
+        "color": 1118481,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": null
+      },
+      {
+        "uuid": "d27877ca-7a95-4345-90e9-12073cb3dadc",
+        "type": "MeshLambertMaterial",
+        "color": 16711680,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": {
+          "face": "F",
+          "local": 2,
+          "global": 20
+        }
+      },
+      {
+        "uuid": "4733c87f-a045-4973-8dfd-31ebb0d064c0",
+        "type": "MeshLambertMaterial",
+        "color": 1118481,
+        "emissive": 0,
+        "reflectivity": 1,
+        "refractionRatio": 0.98,
+        "depthFunc": 3,
+        "depthTest": true,
+        "depthWrite": true,
+        "colorWrite": true,
+        "stencilWrite": false,
+        "stencilWriteMask": 255,
+        "stencilFunc": 519,
+        "stencilRef": 0,
+        "stencilFuncMask": 255,
+        "stencilFail": 7680,
+        "stencilZFail": 7680,
+        "stencilZPass": 7680,
+        "userData": null
+      }
+    ],
+    "object": {
+      "uuid": "27328838-4b4d-4b5d-9011-338d2eb2cbc7",
+      "type": "Mesh",
+      "userData": {
+        "coord": {
+          "x": 1,
+          "y": 1,
+          "z": 1
+        }
+      },
+      "layers": 1,
+      "matrix": [
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        1
+      ],
+      "geometry": "21f8e7e1-cf9b-4b5a-9ed7-e41421c3cedf",
+      "material": [
+        "36d4d9c5-48b2-4c71-822e-6ef5b02d0e5c",
+        "fe16a0d6-9b45-4444-b534-e888a02f081c",
+        "bffa81f4-00cb-4468-9699-0257190a0a33",
+        "32606a7d-c5c6-4b2d-8243-9f911d336f32",
+        "d27877ca-7a95-4345-90e9-12073cb3dadc",
+        "4733c87f-a045-4973-8dfd-31ebb0d064c0"
+      ]
+    }
+  }
+]…

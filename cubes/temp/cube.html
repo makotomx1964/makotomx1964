@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Cube Capture Final Layout</title>
+<script async src="https://docs.opencv.org/4.x/opencv.js"></script>
+
+<!-- jQuery + jQuery Mobile -->
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<!-- jQuery Mobile -->
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<script src="https://unpkg.com/three@0.142.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.142.0/examples/js/controls/OrbitControls.js"></script>
+
+<!-- Cube JS の UMD ビルドを読み込む -->
+<script src="../lib/cube.js"></script>
+<script src="../lib/solve.js"></script>
+
+<!-- cube.js の拡張モジュール -->
+<script src="./js/config.js"></script>
+<script src="./js/cube3d.js"></script>
+
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/camera.css">
+
+</head>
+<body>
+
+<!-- Start of first page: #one -->
+<div data-role="page" id="two" data-url="two" class="body_camera" >
+  <div data-role="header" role="banner" class="ui-header ui-bar-inherit">
+    <h3>Capture → Crop → Perspective補正 → HSV解析</h3>
+  </div><!-- /header -->
+
+  <div style="display: flex;">
+    <div id="wrap">
+      <video id="video" autoplay playsinline></video>
+      <canvas id="view"></canvas>
+      <canvas id="overlay"></canvas>
+    </div>
+    <div id="analysis">
+      <table>
+
+      </table>
+    </div>
+    <canvas id="result"></canvas>
+  </div>
+  <h4>Perspective Result [<span id="facetype" data-face="F"> face </span>]</h4>
+
+  <!--
+  <div class="controls" style="display: flex;">
+    <button onclick="capture()">Capture</button>
+    <button onclick="retake()">Retake</button>
+  </div>
+  -->
+  <div role="main" class="ui-content" >
+  <!--
+      <h3 style="text-align:center;">ルービックキューブ 面展開UI（センター固定＋ID表示）</h3>
+  -->
+      <div id="info6" style="margin-top:6px;color:white;font-family:monospace,serif;">...</div>
+      <div id="info4" style="display:none;margin-top:6px;color:white;font-family:monospace,serif;">...</div>
+      <div id="info5" style="display:none;margin-top:6px;color:white;font-family:monospace,serif;">...</div>
+
+
+      <div class="grid" id="cube-container">
+          <div class="face face-U" id="U"></div>
+          <div class="face face-L" id="L"></div>
+          <div class="face face-F" id="F"></div>
+          <div class="face face-R" id="R"></div>
+          <div class="face face-B" id="B"></div>
+          <div class="face face-D" id="D"></div>
+      </div>
+
+      <!-- 展開用のCube表示領域 -->
+      <div id="cube-container-2" style="display: flex; justify-content: center; margin-left: -120px;">
+        <div id="cube-container-3" style="display: flex; justify-content: center; margin-right: 40px;">
+          <div id="U3"></div>
+        </div>
+        <div id="U2"></div>
+        <div id="L2"></div>
+        <div id="F2"></div>
+        <div id="R2"></div>
+        <div id="B2"></div>
+        <div id="D2"></div>
+      </div>
+      <div style="text-align:center;">
+          <div class="inline-group">
+            <button onclick="applyCubeStateTo3D()">現在の状態を展開</button>
+            <button onclick="resetCubeState()">現在の状態を初期化</button>
+          </div>
+          <pre id="output"></pre>
+      </div>
+
+  </div><!-- /content -->
+</div><!-- /page two -->
+<script src="js/camera.js"></script>
+</body>
+</html>

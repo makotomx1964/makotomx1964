@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Rubik Cube Color Capture (OpenCV.js)</title>
+<style>
+  body { background:#111; color:#eee; text-align:center; }
+  #wrap { position: relative; display:inline-block; }
+  video, canvas { width: 360px; height: 360px; }
+  #overlay {
+    position:absolute; top:0; left:0;
+    width:360px; height:360px;
+    pointer-events:none;
+  }
+  .btn { margin-top:10px; padding:8px 16px; }
+</style>
+</head>
+<body>
+
+<h2>1面をガイドに合わせて撮影</h2>
+
+<div id="wrap">
+  <video id="video" autoplay playsinline></video>
+  <canvas id="overlay" width="360" height="360"></canvas>
+</div>
+
+<br>
+<button class="btn" onclick="capture()">Capture</button>
+
+<pre id="result"></pre>
+
+<!-- OpenCV.js -->
+<script async src="https://docs.opencv.org/4.x/opencv.js"></script>
+
+<script>
+const video = document.getElementById("video");
+const overlay = document.getElementById("overlay");
+const ctx = overlay.getContext("2d");
+const result = document.getElementById("result");
+
+const SIZE = 360;
+const CELL = SIZE / 3;
+
+// --- camera ---
+navigator.mediaDevices.getUserMedia({ video: true }).then(stream => {
+  video.srcObject = stream;
+});
+
+// --- draw guide ---
+function drawGuide() {
+  ctx.clearRect(0,0,SIZE,SIZE);
+  ctx.strokeStyle = "lime";
+  ctx.lineWidth = 2;
+
+  for (let i=1;i<3;i++) {
+    ctx.beginPath();
+    ctx.moveTo(i*CELL,0);
+    ctx.lineTo(i*CELL,SIZE);
+    ctx.stroke();
+
+    ctx.beginPath();
+    ctx.moveTo(0,i*CELL);
+    ctx.lineTo(SIZE,i*CELL);
+    ctx.stroke();
+  }
+  requestAnimationFrame(drawGuide);
+}
+drawGuide();
+
+// --- capture ---
+function capture() {
+  const cap = document.createElement("canvas");
+  cap.width = SIZE;
+  cap.height = SIZE;
+  const cctx = cap.getContext("2d");
+  cctx.drawImage(video,0,0,SIZE,SIZE);
+
+  let src = cv.imread(cap);
+  let hsv = new cv.Mat();
+  cv.cvtColor(src, hsv, cv.COLOR_RGB2HSV);
+
+  const colors = [];
+
+  for (let y=0;y<3;y++) {
+    for (let x=0;x<3;x++) {
+      const cx = Math.floor(x*CELL + CELL/2);
+      const cy = Math.floor(y*CELL + CELL/2);
+      const pixel = hsv.ucharPtr(cy, cx);
+      const h = pixel[0], s = pixel[1], v = pixel[2];
+      colors.push(classifyColor(h,s,v));
+    }
+  }
+
+  src.delete();
+  hsv.delete();
+
+  result.textContent = colors.join(" ");
+}
+
+// --- HSV → cube color ---
+function classifyColor(h,s,v) {
+  if (v > 200 && s < 40) return "W";
+  if (h < 10 || h > 170) return "R";
+  if (h < 25) return "O";
+  if (h < 35) return "Y";
+  if (h < 85) return "G";
+  return "B";
+}
+</script>
+
+</body>
+</html>

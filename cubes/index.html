@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Rubik Cube - cube.js integrated</title>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+
+<!-- jQuery Mobile -->
+<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+<script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+<!-- three.js -->
+<script src="https://unpkg.com/three@0.142.0/build/three.min.js"></script>
+<script src="https://unpkg.com/three@0.142.0/examples/js/controls/OrbitControls.js"></script>
+
+<!-- open.cv -->
+<script src="https://docs.opencv.org/4.x/opencv.js"></script>
+
+<!-- Cube JS の UMD ビルドを読み込む -->
+<script src="./lib/cube.js"></script>
+<script src="./lib/solve.js"></script>
+
+<!-- cube.js の拡張モジュール -->
+<script src="./js/config.js"></script>
+<script src="./js/cube3d.js"></script>
+
+<link rel="stylesheet" href="./css/style.css">
+<link rel="stylesheet" href="./css/camera.css">
+
+
+<style>
+/* Three.js 描画領域 */
+#cubeContainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0px;          /* ← UI の高さ分だけ空ける */
+  background: #000;
+  z-index: 0;
+}
+
+/* 下部 UI */
+#ui {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 210px;
+  padding: 8px 10px;
+  /*  background: rgba(255,255,255,0.92); */
+  background: rgba(0, 0, 0, 0.5); /* ★ 半透明 */
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* ボタン行 */
+#buttons {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.ui-header {
+  position: relative;
+  z-index: 20;
+}
+
+.highlight-m {
+  font-weight: bold;
+  color: red;
+}
+
+
+
+</style>
+
+</head>
+<body>
+<div data-role="page" id="cubePage">
+
+  <!-- /header -->
+  <div data-role="header" role="banner" class="ui-header ui-bar-inherit">
+    <h1 class="ui-title" role="heading" aria-level="1">Rubic Cube Solver</h1>
+    <!-- 右側メニューアイコン -->
+    <a href="#right-menu"
+      class="ui-btn ui-btn-right ui-btn-icon-notext ui-icon-bars ui-corner-all">Menu</a>
+  </div>
+  <!-- /header -->
+
+  <!-- Three.js 専用 -->
+  <div id="cubeContainer"></div>
+
+  <!-- UI 専用 -->
+  <div id="ui">
+    <div id="buttons">
+      <button id="reset">Reset</button>
+      <button id="scramble">Scramble</button>
+      <button id="solved">Solved</button>
+      <button id="resetView">Reset View</button>
+    </div>
+    <div id="info" style="margin-top:6px;color:#fff;font-family:monospace;">...</div>
+    <div id="info2" style="margin-top:6px;color:#fff;font-family:monospace;">...</div>
+    <div id="info3" style="margin-top:6px;color:#fff;font-family:monospace;">...</div>
+    <div id="solves" style="margin-top:6px;color:#fff;font-family:monospace;">...</div>
+    <div id="inverse" style="margin-top:6px;color:#fff;font-family:monospace;">...</div>
+  </div>
+
+  <!-- 右側メニュー -->
+  <div data-role="panel" id="right-menu" data-position="right" data-display="overlay">
+    <ul data-role="listview">
+      <li><a href="#" id="setting">設定</a></li>
+      <li><a href="#" id="reverse">再設定</a></li>
+      <li><a href="#two" >Cube展開</a></li>
+    </ul>
+  </div>
+
+</div>
+
+<div data-role="page" id="two" data-url="two" class="body_camera" >
+  <div data-role="header" role="banner" class="ui-header ui-bar-inherit">
+    <h3>Capture → Crop → Perspective補正 → HSV解析</h3>
+    <!-- 左側配置 -->
+    <div style="position:absolute; right:0.5em; top:0; display:flex; gap:5px; height:100%; align-items:center;">
+      <a href="#cubePage" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all" >home</a>
+      <!--
+      <a href="#one" class="deletescores ui-btn" style="border: none;"><span class="material-icons">home</span></a>
+      -->
+    </div>
+  </div><!-- /header -->
+
+  <div style="display: flex;">
+    <div id="wrap">
+      <video id="video" playsinline webkit-playsinline muted></video>
+      <canvas id="view"></canvas>
+      <canvas id="overlay"></canvas>
+    </div>
+    <div id="analysis">
+      <table>
+
+      </table>
+    </div>
+    <canvas id="result"></canvas>
+  </div>
+  <h4>Perspective Result [<span id="facetype" data-face="F"> face </span>]</h4>
+
+  <!--
+  <div class="controls" style="display: flex;">
+    <button onclick="capture()">Capture</button>
+    <button onclick="retake()">Retake</button>
+  </div>
+  -->
+  <div role="main" class="ui-content" >
+  <!--
+      <h3 style="text-align:center;">ルービックキューブ 面展開UI（センター固定＋ID表示）</h3>
+  -->
+      <div id="info6" style="margin-top:6px;color:white;font-family:monospace,serif;">...</div>
+      <div id="info4" style="display:none;margin-top:6px;color:white;font-family:monospace,serif;">...</div>
+      <div id="info5" style="display:none;margin-top:6px;color:white;font-family:monospace,serif;">...</div>
+
+
+      <div class="grid" id="cube-container">
+          <div class="face face-U" id="U"></div>
+          <div class="face face-L" id="L"></div>
+          <div class="face face-F" id="F"></div>
+          <div class="face face-R" id="R"></div>
+          <div class="face face-B" id="B"></div>
+          <div class="face face-D" id="D"></div>
+      </div>
+
+      <!-- 展開用のCube表示領域 -->
+      <div id="cube-container-2" style="display: flex; justify-content: center; margin-left: -120px;">
+        <div id="cube-container-3" style="display: flex; justify-content: center; margin-right: 40px;">
+          <div id="U3"></div>
+        </div>
+        <div id="U2"></div>
+        <div id="L2"></div>
+        <div id="F2"></div>
+        <div id="R2"></div>
+        <div id="B2"></div>
+        <div id="D2"></div>
+      </div>
+      <div style="text-align:center;">
+          <div class="inline-group">
+            <button onclick="applyCubeStateTo3D()">現在の状態を展開</button>
+            <button onclick="resetCubeState()">現在の状態を初期化</button>
+          </div>
+          <pre id="output"></pre>
+      </div>
+
+  </div><!-- /content -->
+</div><!-- /page two -->
+
+
+<!-- Start of second page: #two -->
+<div data-role="page" id="twox" data-url="one" data-theme="Z" style="background-color:rgba(255,255,255,0.6);">
+  <div data-role="header" role="banner" class="ui-header ui-bar-inherit">
+    <a href="#cubePage" class="ui-btn ui-icon-home ui-btn-icon-notext ui-corner-all" >home</a>
+    <h1 class="ui-title" role="heading" aria-level="1">Rubic Cube Solver(detail)</h1>
+
+    <!-- 左側配置 -->
+    <div style="position:absolute; right:0.5em; top:0; display:flex; gap:5px; height:100%; align-items:center;">
+      <a href="#cubePage" class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all" >home</a>
+      <!--
+      <a href="#one" class="deletescores ui-btn" style="border: none;"><span class="material-icons">home</span></a>
+      -->
+    </div>
+  </div><!-- /header -->
+
+  <div role="main" class="ui-content" >
+      <h3 style="text-align:center;">ルービックキューブ 面展開UI（センター固定＋ID表示）</h3>
+      <div id="info4" style="margin-top:6px;color:black;font-family:monospace,serif;">...</div>
+      <div id="info5" style="margin-top:6px;color:black;font-family:monospace,serif;">...</div>
+      <div id="info6" style="margin-top:6px;color:black;font-family:monospace,serif;">...</div>
+
+      <div class="grid" id="cube-container">
+          <div class="face face-U" id="U"></div>
+          <div class="face face-L" id="L"></div>
+          <div class="face face-F" id="F"></div>
+          <div class="face face-R" id="R"></div>
+          <div class="face face-B" id="B"></div>
+          <div class="face face-D" id="D"></div>
+      </div>
+
+      <!-- 展開用のCube表示領域 -->
+      <div id="cube-container-2" style="display: flex; justify-content: center; margin-left: -120px;">
+        <div id="cube-container-3" style="display: flex; justify-content: center; margin-right: 40px;">
+          <div id="U3"></div>
+        </div>
+        <div id="U2"></div>
+        <div id="L2"></div>
+        <div id="F2"></div>
+        <div id="R2"></div>
+        <div id="B2"></div>
+        <div id="D2"></div>
+      </div>
+
+      <div style="text-align:center;">
+          <div class="inline-group">
+            <button onclick="applyCubeStateTo3D()">現在の状態を展開</button>
+            <button onclick="resetCubeState()">現在の状態を初期化</button>
+          </div>
+          <pre id="output"></pre>
+      </div>
+
+  </div><!-- /content -->
+
+  <div data-role="footer" data-theme="Z">
+    <h4>Copyright 1964-2024, MURAKAMI.makoto</h4>
+  </div><!-- /footer -->
+
+</div><!-- /page two -->
+
+<script src="./js/camera.js"></script>
+
+</body>
+</html>
