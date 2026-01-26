@@ -193,26 +193,266 @@
       out("Error: " + JSON.stringify(error));
       return null;
     }
+    console.log(JSON.stringify(data,null,2));
     return data;
   }
 
   async function loadURLS()
   {
-      const row = await loadMyUrl();
-      if (!row) return;
-      const list = $("#ref-list");
-      list.empty();
-      list.append(`
+    const lists = ["/golf","/reserve","/cubes","/lowtemp","/pension/pension.html"];
+    const row = await loadMyUrl();
+    if (!row) return;
+    const list = $("#ref-list");
+    list.empty();
+    for(const item of lists){
+        list.append(`
         <li>
-          <a href="${row.url}" target="_blank">
-            Golf Scores<br>
+            <a href="${row.url}${item}" target="_blank">
+            ${item}<br>
             <small>${row.url}</small><br>
             <small>${row.updated_at}</small>
-          </a>
+            </a>
         </li>
-      `);
-      list.listview("refresh");
-      out("SELECT:\n" + JSON.stringify(row, null, 2));
+        `);
+    }
+    list.listview("refresh");
+    out("SELECT:\n" + JSON.stringify(row, null, 2));
+  }
+
+  $("#btn-select").on("click", async () => {
+    await loadURLS();
+  });
+
+  // 現在ログインしているか確認
+  (async () => {
+    const { data: { session } } = await client.auth.getSession();
+    if (session) {
+      out("ログイン済み: " + session.user.email);
+      $.mobile.changePage("#page-main", { transition: "slide" });
+    }
+  })();
+</script>
+
+</body>
+</html><!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Supabase Web Test (jQuery Mobile UI)</title>
+
+  <!-- jQuery + jQuery Mobile -->
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <script src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+  <!-- Supabase -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+  <style>
+    #output {
+      background: #f0f0f0;
+      padding: 0.5rem;
+      white-space: pre-wrap;
+      max-height: 200px;
+      overflow-y: auto;
+      font-size: 0.8rem;
+    }
+
+    .icon-btn {
+      width: 36px !important;
+      height: 36px !important;
+      padding: 0 !important;
+      line-height: 36px !important;
+      font-size: 18px !important;
+      min-width: 36px !important;
+      min-height: 36px !important;
+
+      /* jQuery Mobile 固有の余白を削除 */
+      border-radius: 6px;
+    }
+
+
+  </style>
+</head>
+
+<body>
+
+<!-- --- LOGIN PAGE --- -->
+<div data-role="page" id="page-login">
+  <div data-role="header"><h1>Supabase Login</h1></div>
+
+<div role="main" class="ui-content">
+  <!--
+  <label for="email">メール</label>
+  <input type="email" id="email" placeholder="メール" value="makotomx@gmail.com">
+  -->
+  <div data-role="fieldcontain" style="display: flex; align-items: center; gap: 0px;">
+    <label for="email" style="margin: 0; white-space: nowrap;">メール:</label>
+    <!-- 入力ボックスをできるだけ広げる -->
+    <input type="email"
+           id="email"
+           placeholder="メール"
+           value="makotomx@gmail.com"
+           style="flex:1; width:100%; min-width:0;">
+  </div>
+
+  <div data-role="fieldcontain" style="display: flex; align-items: center; gap: 0px;">
+    <label for="password" style="margin: 0; white-space: nowrap;">パスワード:</label>
+    
+    <!-- 入力ボックスをできるだけ広げる -->
+    <input type="password"
+           id="password"
+           placeholder="パスワード"
+           style="flex:1; width:100%; min-width:0;">
+
+    <!-- ボタンをアイコンサイズに制限 -->
+    <div class="audioControls2">
+      <a href="#"
+        id="toggle-pass"
+        data-role="button"
+        data-icon="eye"
+        data-iconpos="notext"
+        data-mini="true"
+        style="margin-left:5px;">
+      </a>
+    </div>
+  </div>
+  <button id="btn-login" data-role="button">ログイン</button>
+  <button id="btn-logout" data-role="button" data-theme="b">ログアウト</button>
+
+  <div id="output"></div>
+</div>
+
+
+<script>
+  $(document).on("click", "#toggle-pass", function () {
+    const input = $("#password");
+    const type = input.attr("type") === "password" ? "text" : "password";
+    input.attr("type", type);
+  });
+</script>
+
+</div>
+
+
+<!-- --- MAIN PAGE --- -->
+<div data-role="page" id="page-main">
+  <div data-role="header">
+    <h1>Supabase Web</h1>
+    <a href="#page-login" data-icon="back" data-transition="slide">戻る</a>
+  </div>
+
+  <div role="main" class="ui-content">
+    <!--
+      <button id="btn-upsert" data-role="button">Insert / Update (UPSERT)</button>
+    -->
+      <button id="btn-select" data-role="button">Select</button>
+      <ul id="ref-list" data-role="listview" data-inset="true"></ul>
+      <div id="output"></div>
+  </div>
+</div>
+
+
+<script type="module">
+  const { createClient } = supabase;
+
+  // ★ あなたの Supabase 設定に置き換えてください
+  const SUPABASE_URL="https://tpdpqohmdpngotidsccw.supabase.co";
+  const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRwZHBxb2htZHBuZ290aWRzY2N3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjM4MTEyNzcsImV4cCI6MjA3OTM4NzI3N30.A9mLIcPNtW37WqqONdbEMSgebvb9l8D5A4MQpqaMjAc";
+  const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  // page-main が表示される直前に実行
+  $(document).on("pagebeforeshow", "#page-main", async function () {
+    console.log("page-main 表示前の処理実行");
+
+    // 例: Supabase SELECT を自動実行
+    await loadURLS();
+  });  
+
+  const out = (msg) => {
+    const pre = document.getElementById("output");
+    pre.textContent = msg + "\n" + pre.textContent;
+  };
+
+  $("#btn-login").on("click", async () => {
+    const email = $("#email").val().trim();
+    const password = $("#password").val().trim();
+
+    const { data, error } = await client.auth.signInWithPassword({ email, password });
+    if (error) {
+      out("ログイン失敗: " + error.message);
+      return;
+    }
+    out("ログイン成功: " + data.user.email);
+
+    $.mobile.changePage("#page-main", { transition: "slide" });
+  });
+
+  $("#btn-logout").on("click", async () => {
+    await client.auth.signOut();
+    out("ログアウトしました");
+    $.mobile.changePage("#page-login", { transition: "slide" });
+  });
+
+  $("#btn-upsert").on("click", async () => {
+    const { data: { user } } = await client.auth.getUser();
+    if (!user) {
+      out("ログインしていません");
+      return;
+    }
+    const email = user.email;
+    const url = "https://intercondylic-margarett-ingratiatingly.ngrok-free.dev";
+
+    const { data, error } = await client
+      .from("user_urls")
+      .upsert([{ email, url }], { onConflict: ["email"], returning: "representation" });
+
+    out("UPSERT:\n" + JSON.stringify({ data, error }, null, 2));
+  });
+
+  async function loadMyUrl() {
+    const { data: { session } } = await client.auth.getSession();
+    if (!session) {
+      out("Not signed in");
+      return null;
+    }
+
+    const email = session.user.email;
+
+    const { data, error } = await client
+      .from("user_urls")
+      .select("url,updated_at")
+      .eq("email", email)
+      .single();
+
+    if (error) {
+      out("Error: " + JSON.stringify(error));
+      return null;
+    }
+    console.log(JSON.stringify(data,null,2));
+    return data;
+  }
+
+  async function loadURLS()
+  {
+    const lists = ["/golf","/reserve","/cubes","/lowtemp","/pension/pension.html"];
+    const row = await loadMyUrl();
+    if (!row) return;
+    const list = $("#ref-list");
+    list.empty();
+    for(const item of lists){
+        list.append(`
+        <li>
+            <a href="${row.url}${item}" target="_blank">
+            ${item}<br>
+            <small>${row.url}</small><br>
+            <small>${row.updated_at}</small>
+            </a>
+        </li>
+        `);
+    }
+    list.listview("refresh");
+    out("SELECT:\n" + JSON.stringify(row, null, 2));
   }
 
   $("#btn-select").on("click", async () => {
