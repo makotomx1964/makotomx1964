@@ -199,7 +199,9 @@
 
   async function loadURLS()
   {
-    const lists = ["/golf","/reserve","/cubes","/lowtemp","/pension/pension.html"];
+    //const lists = ["/golf","/reserve","/cubes","/lowtemp","/pension/pension.html"];
+    const lists = ["/golf","/reserve","/cubes","/lowtemp","/pension/pension.html","/analyzeme/public"];
+    
     const row = await loadMyUrl();
     if (!row) return;
     const list = $("#ref-list");
